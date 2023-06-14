@@ -29,7 +29,6 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 ## Before Deployment Process Please recheck with 
 
-
 ```bash
 npm run prod
 # or
@@ -40,3 +39,5 @@ pnpm prod
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
+## If you want create this project step by step 
+Please follow the [Instruction](./docs/instruction.md)

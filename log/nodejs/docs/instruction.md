@@ -1,4 +1,11 @@
 # Instruction
+
+## Note
+This step work on version below:
+- `npm`: 9.7.1
+- `node`: v20.3.0
+
+## Step by Step
 1. create the project 
 ```zsh
 npx create-next-app@latest nodejs
