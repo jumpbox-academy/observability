@@ -1,0 +1,17 @@
+{
+    "timestamp": "2023-06-15T10:00:00+07:00",
+    "message": "Unable to connect to payement provider!",
+    "level": "INFO",
+    "service": "web-api",
+    "meta_data": {
+        "error_code": "ECUS001",
+        "error_msg": "Invalid API Token",
+        "user_name": "JoJo",
+        "user_id": "C168"
+    },
+    "data": {
+        "key_1": "value",
+        "key_2": "value-2",
+        "key_3": "value-3"
+    }
+}
