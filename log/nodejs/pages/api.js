@@ -1,5 +1,5 @@
-const logger = require('../../configs/logger');
-const config = require('../../configs/config');
+const logger = require('../configs/logger');
+const config = require('../configs/config');
 
 export default function handler(req, res) {
     const secret = config.API_SECRET;

@@ -78,7 +78,7 @@ module.exports = logger;
 
 7. create route and api
 ```
-mkdir -p pages/api && touch pages/api/hello.js
+mkdir -p pages && touch pages/api.js
 ```
 
 8. place this to hello.js
