@@ -81,7 +81,7 @@ module.exports = logger;
 mkdir -p pages && touch pages/api.js
 ```
 
-8. place this to hello.js
+8. place this to api.js
 ```js
 const logger = require('../../configs/logger');
 const config = require('../../configs/config');
