@@ -46,9 +46,9 @@ func handler(w http.ResponseWriter, r *http.Request, config Config) {
 
 	// Convert struct to JSON
 	// pretty JSON
-	logJSON, err := json.MarshalIndent(logMessage, "", "    ")
+	// logJSON, err := json.MarshalIndent(logMessage, "", "    ")
 	// if you not want pretty json please use this
-	// logJSON, err := json.Marshal(logMessage)
+	logJSON, err := json.Marshal(logMessage)
 
 	if err != nil {
 		log.Println(err)
