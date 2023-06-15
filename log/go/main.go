@@ -16,6 +16,7 @@ type LogFormat struct {
 	Message   string      `json:"message"`
 	Level     string      `json:"level"`
 	Service   string      `json:"service"`
+	TraceId   string      `json:"trace_id"`
 	MetaData  interface{} `json:"meta_data"`
 	Data      interface{} `json:"data"`
 }
@@ -33,6 +34,7 @@ func handler(w http.ResponseWriter, r *http.Request, config Config) {
 		Message:   "Secret is: " + apiSecret,
 		Level:     "INFO",
 		Service:   "web-api",
+		TraceId:   "4e30f7340b3fb631",
 		MetaData: map[string]string{
 			"user_name": "JoJo",
 			"user_id":   "C168",

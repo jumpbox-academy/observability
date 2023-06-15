@@ -4,12 +4,13 @@ const config = require('./config');
 
 const logLevel = config.LOG_LEVEL;
 
-const logFormat = winston.format.printf(({ level, message, label, meta, ...data }) => {
+const logFormat = winston.format.printf(({ level, message, label, trace, meta, ...data }) => {
   return JSON.stringify({
     timestamp: moment().format(),
     level: level,
     message: message,
     service: label,
+    trace_id: trace,
     meta_data: meta,
     data: data
   });

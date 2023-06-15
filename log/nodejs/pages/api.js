@@ -8,9 +8,10 @@ export default function handler(req, res) {
         timestamp: new Date().toISOString(),
         message: `Secret is: ${secret}`,
         level: "INFO",
+        service: "web-api",
+        trace_id: "4e30f7340b3fb631",
         meta_data: {
             // add any metadata here
-            service: "web-api",
             error_code: "ECUS001", 
             error_msg: "Invalid API Token", 
             user_name: "JoJo", 
