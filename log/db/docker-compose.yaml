@@ -12,15 +12,15 @@ services:
     networks:
       - loki
 
-  promtail:
-    image: grafana/promtail:2.8.2
-    volumes:
-      - ./promtail-config.yaml:/etc/promtail/config.yaml:ro
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /tmp/log:/tmp/log
-    command: -config.file=/etc/promtail/config.yaml
-    networks:
-      - loki
+  # promtail:
+  #   image: grafana/promtail:2.8.2
+  #   volumes:
+  #     - ./promtail-config.yaml:/etc/promtail/config.yaml:ro
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #     - /tmp/log:/tmp/log
+  #   command: -config.file=/etc/promtail/config.yaml
+  #   networks:
+  #     - loki
 
   grafana:
     environment:
