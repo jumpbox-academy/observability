@@ -1,0 +1,313 @@
+{
+	"info": {
+		"_postman_id": "fbb1450d-2106-4976-a37e-6357c47fb7e2",
+		"name": "LGTM",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9258244"
+	},
+	"item": [
+		{
+			"name": "Trace OTLP",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-protobuf",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n \"resourceSpans\": [\n   {\n     \"resource\": {\n       \"attributes\": [\n         {\n           \"key\": \"service.name\",\n           \"value\": {\n             \"stringValue\": \"test-with-curl\"\n           }\n         }\n       ]\n     },\n     \"scopeSpans\": [\n       {\n         \"scope\": {\n           \"name\": \"manual-test\"\n         },\n         \"spans\": [\n           {\n             \"traceId\": \"71699b6fe85982c7c8995ea3d9c95df2\",\n             \"spanId\": \"3c191d03fa8be065\",\n             \"name\": \"spanitron\",\n             \"kind\": 2,\n             \"droppedAttributesCount\": 0,\n             \"events\": [],\n             \"droppedEventsCount\": 0,\n             \"status\": {\n               \"code\": 1\n             }\n           }\n         ]\n       }\n     ]\n   }\n ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4318/v1/traces",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4318",
+					"path": [
+						"v1",
+						"traces"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Trace OTLP",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-protobuf",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"resourceSpans\": [\n   {\n     \"resource\": {\n       \"attributes\": [\n         {\n           \"key\": \"service.name\",\n           \"value\": {\n             \"stringValue\": \"test-with-curl\"\n           }\n         }\n       ]\n     },\n     \"scopeSpans\": [\n       {\n         \"scope\": {\n           \"name\": \"manual-test\"\n         },\n         \"spans\": [\n           {\n             \"traceId\": \"71699b6fe85982c7c8995ea3d9c95df2\",\n             \"spanId\": \"3c191d03fa8be065\",\n             \"name\": \"spanitron\",\n             \"kind\": 2,\n             \"droppedAttributesCount\": 0,\n             \"events\": [],\n             \"droppedEventsCount\": 0,\n             \"status\": {\n               \"code\": 1\n             }\n           }\n         ]\n       }\n     ]\n   }\n ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4318/v1/traces",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4318",
+							"path": [
+								"v1",
+								"traces"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 05 Dec 2023 16:39:59 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "21"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"partialSuccess\": {}\n}"
+				}
+			]
+		},
+		{
+			"name": "Logs OTLP",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-protobuf",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"resourceLogs\": [\n    {\n      \"resource\": {\n        \"attributes\": [\n          {\n            \"key\": \"service.name\",\n            \"value\": {\n              \"stringValue\": \"my.service\"\n            }\n          }\n        ]\n      },\n      \"scopeLogs\": [\n        {\n          \"scope\": {\n            \"name\": \"my.library\",\n            \"version\": \"1.0.0\",\n            \"attributes\": [\n              {\n                \"key\": \"my.scope.attribute\",\n                \"value\": {\n                  \"stringValue\": \"some scope attribute\"\n                }\n              }\n            ]\n          },\n          \"logRecords\": [\n            {\n              \"timeUnixNano\": 1544712660300000000,\n              \"observedTimeUnixNano\": 1544712660300000000,\n              \"severityText\": \"Information\",\n              \"traceId\": \"5B8EFFF798038103D269B633813FC60C\",\n              \"spanId\": \"EEE19B7EC3C1B174\",\n              \"body\": {\n                \"stringValue\": \"Example log record\"\n              },\n              \"attributes\": [\n                {\n                  \"key\": \"string.attribute\",\n                  \"value\": {\n                    \"stringValue\": \"some string\"\n                  }\n                },\n                {\n                  \"key\": \"boolean.attribute\",\n                  \"value\": {\n                    \"boolValue\": true\n                  }\n                },\n                {\n                  \"key\": \"int.attribute\",\n                  \"value\": {\n                    \"intValue\": 10\n                  }\n                },\n                {\n                  \"key\": \"double.attribute\",\n                  \"value\": {\n                    \"doubleValue\": 637.704\n                  }\n                },\n                {\n                  \"key\": \"array.attribute\",\n                  \"value\": {\n                    \"arrayValue\": {\n                      \"values\": [\n                        {\n                          \"stringValue\": \"many\"\n                        },\n                        {\n                          \"stringValue\": \"values\"\n                        }\n                      ]\n                    }\n                  }\n                },\n                {\n                  \"key\": \"map.attribute\",\n                  \"value\": {\n                    \"kvlistValue\": {\n                      \"values\": [\n                        {\n                          \"key\": \"some.map.key\",\n                          \"value\": {\n                            \"stringValue\": \"some value\"\n                          }\n                        }\n                      ]\n                    }\n                  }\n                }\n              ]\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4318/v1/logs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4318",
+					"path": [
+						"v1",
+						"logs"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Logs OTLP",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-protobuf",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"resourceLogs\": [\n    {\n      \"resource\": {\n        \"attributes\": [\n          {\n            \"key\": \"service.name\",\n            \"value\": {\n              \"stringValue\": \"my.service\"\n            }\n          }\n        ]\n      },\n      \"scopeLogs\": [\n        {\n          \"scope\": {\n            \"name\": \"my.library\",\n            \"version\": \"1.0.0\",\n            \"attributes\": [\n              {\n                \"key\": \"my.scope.attribute\",\n                \"value\": {\n                  \"stringValue\": \"some scope attribute\"\n                }\n              }\n            ]\n          },\n          \"logRecords\": [\n            {\n              \"timeUnixNano\": 1544712660300000000,\n              \"observedTimeUnixNano\": 1544712660300000000,\n              \"severityText\": \"Information\",\n              \"traceId\": \"5B8EFFF798038103D269B633813FC60C\",\n              \"spanId\": \"EEE19B7EC3C1B174\",\n              \"body\": {\n                \"stringValue\": \"Example log record\"\n              },\n              \"attributes\": [\n                {\n                  \"key\": \"string.attribute\",\n                  \"value\": {\n                    \"stringValue\": \"some string\"\n                  }\n                },\n                {\n                  \"key\": \"boolean.attribute\",\n                  \"value\": {\n                    \"boolValue\": true\n                  }\n                },\n                {\n                  \"key\": \"int.attribute\",\n                  \"value\": {\n                    \"intValue\": 10\n                  }\n                },\n                {\n                  \"key\": \"double.attribute\",\n                  \"value\": {\n                    \"doubleValue\": 637.704\n                  }\n                },\n                {\n                  \"key\": \"array.attribute\",\n                  \"value\": {\n                    \"arrayValue\": {\n                      \"values\": [\n                        {\n                          \"stringValue\": \"many\"\n                        },\n                        {\n                          \"stringValue\": \"values\"\n                        }\n                      ]\n                    }\n                  }\n                },\n                {\n                  \"key\": \"map.attribute\",\n                  \"value\": {\n                    \"kvlistValue\": {\n                      \"values\": [\n                        {\n                          \"key\": \"some.map.key\",\n                          \"value\": {\n                            \"stringValue\": \"some value\"\n                          }\n                        }\n                      ]\n                    }\n                  }\n                }\n              ]\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4318/v1/logs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4318",
+							"path": [
+								"v1",
+								"logs"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 05 Dec 2023 17:11:38 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "21"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"partialSuccess\": {}\n}"
+				}
+			]
+		},
+		{
+			"name": "Metrics OTLP",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-protobuf",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"resourceMetrics\": [\n    {\n      \"resource\": {\n        \"attributes\": [\n          {\n            \"key\": \"service.name\",\n            \"value\": {\n              \"stringValue\": \"my.service\"\n            }\n          }\n        ]\n      },\n      \"scopeMetrics\": [\n        {\n          \"scope\": {\n            \"name\": \"my.library\",\n            \"version\": \"1.0.0\",\n            \"attributes\": [\n              {\n                \"key\": \"my.scope.attribute\",\n                \"value\": {\n                  \"stringValue\": \"some scope attribute\"\n                }\n              }\n            ]\n          },\n          \"metrics\": [\n            {\n              \"name\": \"my.counter\",\n              \"unit\": \"1\",\n              \"description\": \"I am a Counter\",\n              \"sum\": {\n                \"aggregationTemporality\": 1,\n                \"isMonotonic\": true,\n                \"dataPoints\": [\n                  {\n                    \"asDouble\": 5,\n                    \"startTimeUnixNano\": 1544712660300000000,\n                    \"timeUnixNano\": 1544712660300000000,\n                    \"attributes\": [\n                      {\n                        \"key\": \"my.counter.attr\",\n                        \"value\": {\n                          \"stringValue\": \"some value\"\n                        }\n                      }\n                    ]\n                  }\n                ]\n              }\n            },\n            {\n              \"name\": \"my.gauge\",\n              \"unit\": \"1\",\n              \"description\": \"I am a Gauge\",\n              \"gauge\": {\n                \"dataPoints\": [\n                  {\n                    \"asDouble\": 10,\n                    \"timeUnixNano\": 1544712660300000000,\n                    \"attributes\": [\n                      {\n                        \"key\": \"my.gauge.attr\",\n                        \"value\": {\n                          \"stringValue\": \"some value\"\n                        }\n                      }\n                    ]\n                  }\n                ]\n              }\n            },\n            {\n              \"name\": \"my.histogram\",\n              \"unit\": \"1\",\n              \"description\": \"I am a Histogram\",\n              \"histogram\": {\n                \"aggregationTemporality\": 1,\n                \"dataPoints\": [\n                  {\n                    \"startTimeUnixNano\": 1544712660300000000,\n                    \"timeUnixNano\": 1544712660300000000,\n                    \"count\": 2,\n                    \"sum\": 2,\n                    \"bucketCounts\": [1,1],\n                    \"explicitBounds\": [1],\n                    \"min\": 0,\n                    \"max\": 2,\n                    \"attributes\": [\n                      {\n                        \"key\": \"my.histogram.attr\",\n                        \"value\": {\n                          \"stringValue\": \"some value\"\n                        }\n                      }\n                    ]\n                  }\n                ]\n              }\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4318/v1/metrics",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4318",
+					"path": [
+						"v1",
+						"metrics"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Metrics OTLP",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-protobuf",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"resourceMetrics\": [\n    {\n      \"resource\": {\n        \"attributes\": [\n          {\n            \"key\": \"service.name\",\n            \"value\": {\n              \"stringValue\": \"my.service\"\n            }\n          }\n        ]\n      },\n      \"scopeMetrics\": [\n        {\n          \"scope\": {\n            \"name\": \"my.library\",\n            \"version\": \"1.0.0\",\n            \"attributes\": [\n              {\n                \"key\": \"my.scope.attribute\",\n                \"value\": {\n                  \"stringValue\": \"some scope attribute\"\n                }\n              }\n            ]\n          },\n          \"metrics\": [\n            {\n              \"name\": \"my.counter\",\n              \"unit\": \"1\",\n              \"description\": \"I am a Counter\",\n              \"sum\": {\n                \"aggregationTemporality\": 1,\n                \"isMonotonic\": true,\n                \"dataPoints\": [\n                  {\n                    \"asDouble\": 5,\n                    \"startTimeUnixNano\": 1544712660300000000,\n                    \"timeUnixNano\": 1544712660300000000,\n                    \"attributes\": [\n                      {\n                        \"key\": \"my.counter.attr\",\n                        \"value\": {\n                          \"stringValue\": \"some value\"\n                        }\n                      }\n                    ]\n                  }\n                ]\n              }\n            },\n            {\n              \"name\": \"my.gauge\",\n              \"unit\": \"1\",\n              \"description\": \"I am a Gauge\",\n              \"gauge\": {\n                \"dataPoints\": [\n                  {\n                    \"asDouble\": 10,\n                    \"timeUnixNano\": 1544712660300000000,\n                    \"attributes\": [\n                      {\n                        \"key\": \"my.gauge.attr\",\n                        \"value\": {\n                          \"stringValue\": \"some value\"\n                        }\n                      }\n                    ]\n                  }\n                ]\n              }\n            },\n            {\n              \"name\": \"my.histogram\",\n              \"unit\": \"1\",\n              \"description\": \"I am a Histogram\",\n              \"histogram\": {\n                \"aggregationTemporality\": 1,\n                \"dataPoints\": [\n                  {\n                    \"startTimeUnixNano\": 1544712660300000000,\n                    \"timeUnixNano\": 1544712660300000000,\n                    \"count\": 2,\n                    \"sum\": 2,\n                    \"bucketCounts\": [1,1],\n                    \"explicitBounds\": [1],\n                    \"min\": 0,\n                    \"max\": 2,\n                    \"attributes\": [\n                      {\n                        \"key\": \"my.histogram.attr\",\n                        \"value\": {\n                          \"stringValue\": \"some value\"\n                        }\n                      }\n                    ]\n                  }\n                ]\n              }\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4318/v1/metrics",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4318",
+							"path": [
+								"v1",
+								"metrics"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 05 Dec 2023 17:12:18 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "21"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"partialSuccess\": {}\n}"
+				}
+			]
+		}
+	]
+}

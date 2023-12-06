@@ -1,5 +1,12 @@
+# Instruction
+
+## Action
 ```bash
 docker run --name agent --network grafanet -e AGENT_MODE=flow -v $(pwd)/config.river:/etc/agent/config.river -p 9999:9999 -p 12345:12345 grafana/agent run --server.http.listen-addr=0.0.0.0:12345 /etc/agent/config.river
+```
+**Or temporary configuration**
+```bash
+docker run --name agent --rm --network grafanet -e AGENT_MODE=flow -v $(pwd)/config.river:/etc/agent/config.river -p 4318:4318 -p 12345:12345 grafana/agent run --server.http.listen-addr=0.0.0.0:12345 /etc/agent/config.river
 ```
 
 ```bash
@@ -20,18 +27,14 @@ z 200 OK 2.526692ms","time":"2023-12-05T13:08:15.299+0700","method":"GET","uri":
 ```
 
 **JSON**
-Endpoint: `http://localhost:9999/api/v1/push`
+Endpoint: `http://localhost:4318/v1/<matrics / traces / logs>
 POSTMAN Header via bulk edit: `Content-Type:application/json`
 ```json
-{
-    "level": "info",
-    "time": "2023-12-05T12:47:25.299+0700",
-    "file": "middleware/request_logger.go:354",
-    "message": "GET /livez, 200 OK 78.253µs",
-    "method": "GET",
-    "uri": "/livez",
-    "status": "200 OK",
-    "latency": "78.253µs",
-    "userAgent": "kube-probe/1.21"
-}
+Please use postman collection
 ```
+
+## Receiver
+https://grafana.com/docs/agent/latest/flow/reference/components/otelcol.receiver.otlp/#http-block 
+
+## Postman Payload Example
+https://github.com/open-telemetry/opentelemetry-proto/tree/main/examples

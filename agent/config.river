@@ -1,23 +1,41 @@
 logging {
-  level  = "info"
+  level  = "debug"
   format = "logfmt"
 }
 
-loki.write "local" {
-    endpoint {
-        url = "http://loki:3100/api/v1/push"
-    }
+otelcol.receiver.otlp "example" {
+  http {
+    endpoint = "0.0.0.0:4318"
+  }
+
+  output {
+    metrics = [otelcol.processor.batch.default.input]
+    logs    = [otelcol.processor.batch.default.input]
+    traces  = [otelcol.processor.batch.default.input]
+  }
 }
 
-loki.source.api "loki_push_api" {
-    http {
-        listen_address = "0.0.0.0"
-        listen_port = 9999
-    }
-    forward_to = [
-        loki.write.local.receiver,
-    ]
-    labels = {
-        forwarded = "true",
-    }
+otelcol.processor.batch "default" {
+  output {
+    metrics = [otelcol.exporter.logging.default.input]
+    logs    = [otelcol.exporter.logging.default.input]
+    traces  = [otelcol.exporter.logging.default.input]
+  }
+}
+
+otelcol.exporter.logging "default" {
+    verbosity           = "detailed"
+    sampling_initial    = 1
+    sampling_thereafter = 1
+}
+
+otelcol.exporter.loki "default" {
+  forward_to = [loki.write.local.receiver]
+}
+
+
+loki.write "local" {
+  endpoint {
+    url = "loki:3100"
+  }
 }
