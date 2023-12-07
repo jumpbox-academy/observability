@@ -8,7 +8,7 @@ def configure_tracer():
     # exporter = ConsoleSpanExporter()
     exporter = JaegerExporter()
     span_processor = BatchSpanProcessor(exporter)
-    provider = TracerProvider(resource=resource)
+    provider = TracerProvider()
     provider.add_span_processor(span_processor)
     trace.set_tracer_provider(provider)
     return trace.get_tracer("product.py", "0.0.1")
