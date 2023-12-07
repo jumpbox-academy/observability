@@ -6,12 +6,6 @@ from opentelemetry.exporter.jaeger.thrift import JaegerExporter
 
 def configure_tracer():
     # exporter = ConsoleSpanExporter()
-    resource = Resource.create(
-        {
-            "service.name": "nong-kai-demo",
-            "service.version": "0.1.2",
-        }
-    )
     exporter = JaegerExporter()
     span_processor = BatchSpanProcessor(exporter)
     provider = TracerProvider(resource=resource)

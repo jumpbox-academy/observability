@@ -15,3 +15,11 @@ pip install opentelemetry-exporter-jaeger
 pip3 install opentelemetry-exporter-jaeger
 ```
 Dependencies: https://pypi.org/project/opentelemetry-exporter-jaeger/  
+
+## Propagator Section
+```bash
+python -m pip install opentelemetry-propagator-b3
+python3 -m pip install opentelemetry-propagator-b3
+pip install opentelemetry-propagator-b3
+pip3 install opentelemetry-propagator-b3
+```
