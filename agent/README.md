@@ -1,17 +1,12 @@
-# Instruction
+## Instruction
 
-## Action
-```bash
-docker run --name agent --network grafanet -e AGENT_MODE=flow -v $(pwd)/config.river:/etc/agent/config.river -p 9999:9999 -p 12345:12345 grafana/agent run --server.http.listen-addr=0.0.0.0:12345 /etc/agent/config.river
-```
-**Or temporary configuration**
-```bash
-docker run --name agent --rm --network grafanet -e AGENT_MODE=flow -v $(pwd)/config.river:/etc/agent/config.river -p 4318:4318 -p 12345:12345 grafana/agent run --server.http.listen-addr=0.0.0.0:12345 /etc/agent/config.river
-```
+You can use Agent as a middleware for processing befor send:
 
-```bash
-docker run --name loki --network grafanet -d -v $(pwd)/loki.yaml:/mnt/config/loki.yaml -p 3100:3100 grafana/loki:2.9.1 -config.file=/mnt/config/loki.yaml
-```
+1. [Grafana Agent](./grafana-agent)
+2. [Otel Collector](./otel-collector) 
+
+Then you can provision LGTM Stack for testing data pipeline via Docker Container: [LGTM Stack](./lgtm-config/)
+
 
 **RAW Log**
 ```

@@ -1,0 +1,21 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: "0.0.0.0:4317"  # หรือพอร์ตอื่นที่คุณต้องการ
+      http:
+        endpoint: "0.0.0.0:4318"  # หรือพอร์ตอื่นที่คุณต้องการ
+
+exporters:
+  prometheusremotewrite:
+    endpoint: "http://mimir:9009/api/v1/push"  # แทนที่ด้วย endpoint ของ Mimir
+    # tls:
+    #   insecure: true
+  debug:
+    # verbosity: detailed
+
+service:
+  pipelines:
+    metrics:
+      receivers: [otlp]
+      exporters: [debug, prometheusremotewrite]
