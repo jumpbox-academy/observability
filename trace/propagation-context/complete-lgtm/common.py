@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from flask import request
 from opentelemetry import trace
 from opentelemetry.sdk.resources import Resource
@@ -12,7 +13,19 @@ from opentelemetry.sdk._logs import (
     LoggerProvider,
     LoggingHandler,
 )
+from typing import Iterable
 
+from opentelemetry.exporter.otlp.proto.grpc.metric_exporter import (
+    OTLPMetricExporter,
+)
+from opentelemetry.metrics import (
+    CallbackOptions,
+    Observation,
+    get_meter_provider,
+    set_meter_provider,
+)
+from opentelemetry.sdk.metrics import MeterProvider
+from opentelemetry.sdk.metrics.export import PeriodicExportingMetricReader
 
 def configure_logger(name, version):
     local_resource = LocalMachineResourceDetector().detect()
@@ -35,7 +48,20 @@ def configure_logger(name, version):
 
 
 def configure_meter(name, version):
-    pass
+    exporter = OTLPMetricExporter(insecure=True)
+    reader = PeriodicExportingMetricReader(exporter)
+    local_resource = LocalMachineResourceDetector().detect()
+    resource = local_resource.merge(
+        Resource.create(
+            {
+                ResourceAttributes.SERVICE_NAME: name,
+                ResourceAttributes.SERVICE_VERSION: version,
+            }
+        )
+    )
+    provider = MeterProvider(metric_readers=[reader], resource=resource)
+    set_meter_provider(provider)
+    return get_meter_provider().get_meter(name, version)
 
 
 def configure_tracer(name, version):

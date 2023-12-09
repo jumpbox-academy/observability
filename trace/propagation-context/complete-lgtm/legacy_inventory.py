@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from flask import Flask, jsonify, request
 from opentelemetry import context
 from opentelemetry.propagate import extract, set_global_textmap

@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from logging.config import dictConfig
 import requests
 from flask import Flask, request
@@ -38,7 +39,6 @@ set_global_textmap(
 )
 app = Flask(__name__)
 app.wsgi_app = OpenTelemetryMiddleware(app.wsgi_app)
-
 
 @app.before_request
 def before_request_func():
