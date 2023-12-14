@@ -3,7 +3,7 @@ logging {
   format = "logfmt"
 }
 
-otelcol.receiver.otlp "example" {
+otelcol.receiver.otlp "otlp_receiver" {
   http {
     endpoint = "0.0.0.0:4318"
   }
@@ -17,9 +17,22 @@ otelcol.receiver.otlp "example" {
 
 otelcol.processor.batch "default" {
   output {
-    metrics = [otelcol.exporter.logging.default.input]
-    logs    = [otelcol.exporter.logging.default.input]
-    traces  = [otelcol.exporter.logging.default.input]
+    metrics = [otelcol.exporter.prometheus.default.input]
+    logs    = [otelcol.exporter.loki.default.input]
+    traces  = [otelcol.exporter.otlp.default.input]
+  }
+}
+
+otelcol.processor.attributes "default" {
+  
+  action {
+    key = "loki.resource.labels"
+    action = "insert"
+    value = "service.name, service.namespace"
+  }
+  
+  output {
+    logs = [otelcol.exporter.loki.default.input]
   }
 }
 
@@ -30,12 +43,53 @@ otelcol.exporter.logging "default" {
 }
 
 otelcol.exporter.loki "default" {
-  forward_to = [loki.write.local.receiver]
+  forward_to = [loki.echo.stdout.receiver, loki.write.local.receiver]
 }
 
+loki.echo "stdout" { }
 
+loki.process "drop_if_no_level" {
+  forward_to = [loki.write.local.receiver]
+
+  stage.json {
+    expressions = {
+      output  = "log",
+      level   = "level",
+      time    = "time",
+      file    = "file",
+      message = "message",
+    }
+  }
+}
+
+// Remote Write
+// https://grafana.com/docs/loki/latest/reference/api/#push-log-entries-to-loki
 loki.write "local" {
   endpoint {
-    url = "loki:3100"
+    url = "http://loki:3100/loki/api/v1/push"
   }
+}
+
+otelcol.exporter.prometheus "default" {
+  forward_to = [prometheus.remote_write.mimir.receiver]
+}
+
+// Remote Write
+// https://grafana.com/docs/mimir/latest/references/http-api/#distributor
+prometheus.remote_write "mimir" {
+  endpoint {
+    url = "http://mimir:9009/api/v1/push"
+  }
+}
+
+// Remote Write
+// https://grafana.com/docs/tempo/latest/api_docs/pushing-spans-with-http/#push-spans-with-otlp
+otelcol.exporter.otlp  "default" {
+    client {
+        endpoint = "http://tempo:4317"
+        tls {
+            insecure             = true
+            insecure_skip_verify = true
+        }
+    }
 }

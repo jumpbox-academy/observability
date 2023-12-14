@@ -7,6 +7,15 @@ receivers:
         endpoint: "0.0.0.0:4318"  # หรือพอร์ตอื่นที่คุณต้องการ
 
 exporters:
+  otlp:
+    endpoint: tempo:4317
+    tls:
+      insecure: true
+  loki:
+    endpoint: https://loki:3100/loki/api/v1/push
+    default_labels_enabled:
+      exporter: false
+      job: true
   prometheusremotewrite:
     endpoint: "http://mimir:9009/api/v1/push"  # แทนที่ด้วย endpoint ของ Mimir
     # tls:
@@ -19,3 +28,9 @@ service:
     metrics:
       receivers: [otlp]
       exporters: [debug, prometheusremotewrite]
+    logs:
+      receivers: [otlp]
+      exporters: [debug]
+    traces:
+      receivers: [otlp]
+      exporters: [debug]

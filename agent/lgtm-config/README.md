@@ -8,7 +8,7 @@ docker network create grafanet
 ## Action
 **Tempo**
 ```bash
-docker run  --name tempo --network grafanet  -d -p 3200:3200 -p 4318:4318/udp -v $(pwd)/tempo.yaml:/etc/tempo.yaml grafana/tempo -config.file=/etc/tempo.yaml
+docker run  --name tempo --network grafanet  -d -p 3200:3200 -p 4317:4317 -v $(pwd)/tempo.yaml:/etc/tempo.yaml grafana/tempo -config.file=/etc/tempo.yaml
 ```
 
 **Mimir**
