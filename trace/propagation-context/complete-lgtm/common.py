@@ -7,17 +7,30 @@ from opentelemetry.sdk.trace.export import BatchSpanProcessor, ConsoleSpanExport
 from opentelemetry.semconv.resource import ResourceAttributes
 from opentelemetry.semconv.trace import SpanAttributes
 from local_machine_resource_detector import LocalMachineResourceDetector
-import logging
-from opentelemetry.sdk._logs.export import ConsoleLogExporter, BatchLogRecordProcessor
-from opentelemetry.sdk._logs import (
-    LoggerProvider,
-    LoggingHandler,
-)
-from typing import Iterable
 
-from opentelemetry.exporter.otlp.proto.grpc.metric_exporter import (
+# For more information about http logs exporter
+# https://github.com/open-telemetry/opentelemetry-python/blob/main/exporter/opentelemetry-exporter-otlp-proto-http/src/opentelemetry/exporter/otlp/proto/http/_log_exporter/__init__.py#L62
+from opentelemetry.exporter.otlp.proto.http.trace_exporter import (
+    OTLPSpanExporter,
+) # default http://localhost:4318
+
+import logging
+from opentelemetry._logs import set_logger_provider
+from opentelemetry.sdk._logs import LoggerProvider, LoggingHandler
+from opentelemetry.sdk._logs.export import ConsoleLogExporter, BatchLogRecordProcessor
+# For more information about http logs exporter
+# https://github.com/open-telemetry/opentelemetry-python/blob/main/exporter/opentelemetry-exporter-otlp-proto-http/src/opentelemetry/exporter/otlp/proto/http/_log_exporter/__init__.py#L62
+from opentelemetry.exporter.otlp.proto.http._log_exporter import (
+    OTLPLogExporter,
+) # default http://localhost:4318
+
+from typing import Iterable
+# For more information about http metrics exporter
+# https://github.com/open-telemetry/opentelemetry-python/blob/main/exporter/opentelemetry-exporter-otlp-proto-http/src/opentelemetry/exporter/otlp/proto/http/metric_exporter/__init__.py#L86
+from opentelemetry.exporter.otlp.proto.http.metric_exporter import (
     OTLPMetricExporter,
-)
+) # default http://localhost:4318
+
 from opentelemetry.metrics import (
     CallbackOptions,
     Observation,
@@ -38,18 +51,21 @@ def configure_logger(name, version):
         )
     )
     provider = LoggerProvider(resource=resource)
-    # set_log_emitter_provider(provider)
-    exporter = ConsoleLogExporter()
+    set_logger_provider(provider)
+#    // exporter = ConsoleLogExporter()
+    exporter = OTLPLogExporter()
     provider.add_log_record_processor(BatchLogRecordProcessor(exporter))
     logger = logging.getLogger(name)
-    handler = LoggingHandler(level=logging.DEBUG, logger_provider=provider)
+    handler = LoggingHandler(level=logging.NOTSET, logger_provider=provider)
     logger.addHandler(handler)
+    logging.basicConfig(level=logging.DEBUG)
+
     return logger
 
 
 def configure_meter(name, version):
-    exporter = OTLPMetricExporter(insecure=True)
-    reader = PeriodicExportingMetricReader(exporter)
+    exporter = OTLPMetricExporter()
+    reader = PeriodicExportingMetricReader(exporter, export_interval_millis=3000)
     local_resource = LocalMachineResourceDetector().detect()
     resource = local_resource.merge(
         Resource.create(
@@ -65,7 +81,7 @@ def configure_meter(name, version):
 
 
 def configure_tracer(name, version):
-    exporter = ConsoleSpanExporter()
+    exporter = OTLPSpanExporter()
     span_processor = BatchSpanProcessor(exporter)
     local_resource = LocalMachineResourceDetector().detect()
     resource = local_resource.merge(

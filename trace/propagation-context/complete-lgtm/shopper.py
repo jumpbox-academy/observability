@@ -38,6 +38,7 @@ def browse():
         "web request", kind=trace.SpanKind.CLIENT, record_exception=False
     ) as span:
         url = "http://localhost:5000/products"
+        # url = "http://google.com"
         span.set_attributes(
             {
                 SpanAttributes.HTTP_METHOD: "GET",
@@ -80,15 +81,23 @@ def add_item_to_cart(item, quantity):
 
 @tracer.start_as_current_span("visit store")
 def visit_store():
+    logger.info("visit store")
     browse()
 
 
+
 if __name__ == "__main__":
+    logger.info("main")
+
+    # input("Press ctrl + c key to exit...")
     visit_store()
-    # Counter
+    print("kai")
+    
     counter = meter.create_counter("counter")
     counter.add(1)
-
+    
+    # input("Press ctrl + c key to exit...")
+    
     # Async Counter
     observable_counter = meter.create_observable_counter(
         "observable_counter",
@@ -111,4 +120,5 @@ if __name__ == "__main__":
 
     # Async Gauge
     gauge = meter.create_observable_gauge("gauge", [observable_gauge_func])
+    
     
