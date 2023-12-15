@@ -31,10 +31,29 @@ compactor:
     block_retention: 1h                # overall Tempo trace retention. set for demo purposes
 
 metrics_generator:
+  # Specifies which processors to use.
+  processor:
+    # Span metrics create metrics based on span type, duration, name and service.
+    span_metrics:
+        # Configure extra dimensions to add as metric labels.
+        dimensions:
+          - http.method
+          - http.target
+          - http.status_code
+          - service.version
+    # Service graph metrics create node and edge metrics for determinng service interactions.
+    service_graphs:
+        # Configure extra dimensions to add as metric labels.
+        dimensions:
+          - http.method
+          - http.target
+          - http.status_code
+          - service.version
   registry:
+    collection_interval: 5s                 # Create new metrics every 5s.
     external_labels:
       source: tempo
-      cluster: docker-compose
+      group: online-shopping
   storage:
     path: /tmp/tempo/generator/wal
     remote_write:
@@ -52,4 +71,4 @@ storage:
 overrides:
   defaults:
     metrics_generator:
-      processors: [service-graphs, span-metrics] # enables metrics generator
+      processors: [service-graphs, span-metrics, 'local-blocks'] # enables metrics generator

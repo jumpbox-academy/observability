@@ -25,6 +25,10 @@ docker run --name loki --network grafanet -d -v $(pwd)/loki.yaml:/mnt/config/lok
 ```bash
 docker run --name=grafana --network grafanet -d -p 3000:3000 grafana/grafana
 ```
+**Or with Dashboard config**
+```bash
+docker run --name=grafana --network grafanet -d -v "$(pwd)/dashboard:/etc/grafana/provisioning" -p 3000:3000 grafana/grafana 
+```
 
 **Information:**
 
