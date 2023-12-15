@@ -4,9 +4,11 @@ from opentelemetry import context
 from opentelemetry.propagate import extract, set_global_textmap
 from opentelemetry.propagators.b3 import B3MultiFormat
 from opentelemetry.trace import SpanKind
-from common import configure_tracer, set_span_attributes_from_flask
+from common import configure_tracer, configure_logger, set_span_attributes_from_flask
 
 tracer = configure_tracer("legacy-inventory", "0.9.1")
+logger = configure_logger("legacy-inventory", "0.9.1")
+
 app = Flask(__name__)
 set_global_textmap(B3MultiFormat())
 
@@ -24,6 +26,8 @@ def teardown_request_func(err):
 @app.route("/inventory")
 @tracer.start_as_current_span("/inventory", kind=SpanKind.SERVER)
 def inventory():
+    logger.debug("/inventory query product")
+    print("/inventory query product")
     set_span_attributes_from_flask()
     products = [
         {"name": "oranges", "quantity": "10"},

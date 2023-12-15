@@ -63,6 +63,8 @@ def welcome():
 @app.route("/products")
 @tracer.start_as_current_span("/products", kind=SpanKind.SERVER)
 def products():
+    logger.debug("/product: inventory request")
+    print("/product: inventory request")
     set_span_attributes_from_flask()
     with tracer.start_as_current_span("inventory request") as span:
         url = "http://localhost:5001/inventory"
